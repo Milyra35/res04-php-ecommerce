@@ -31,6 +31,7 @@ class ProductManager extends AbstractManager {
         return $product;
     }
 
+    // If we want to edit a product
     public function editProduct(Product $product) : void
     {
         $query=$this->db->prepare("UPDATE products SET product_name = :name, pictures = :picture, description = :description, price = :price, quantity = :quantity");
@@ -41,6 +42,27 @@ class ProductManager extends AbstractManager {
             'price' => $product->getPrice(),
             'quantity' => $product->getQuantity()
         ];
+        $query->execute($parameters);
+    }
+
+    // To find the Product by its id
+    public function getProductById(int $id) : Product
+    {
+        $query=$this->db->prepare("SELECT * FROM products WHERE products.id = :id");
+        $parameters=['id' => $id];
+        $query->execute($parameters);
+        $product = $query->fetch(PDO::FETCH_ASSOC);
+
+        $newProd = new Product($product['product_name'], $product['pictures'], $product['description'], $product['price'], $product['quantity']);
+
+        return $newProd;
+    }
+
+    // To delete a Product
+    public function deleteProduct(int $id) : void
+    {
+        $query=$this->db->prepare("DELETE FROM products WHERE products.id = :id");
+        $parameters=['id' => $id];
         $query->execute($parameters);
     }
 
