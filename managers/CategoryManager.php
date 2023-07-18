@@ -18,7 +18,7 @@ class CategoryManager extends AbstractManager {
                             VALUES (:name, :product, :description)");
         $parameters=[
             'name' => $category->getName(),
-            'product' => $category->getCategory()->getId(),
+            'product' => $category->getProduct()->getId(),
             'description' => $category->getDescription()
         ];
         $query->execute($parameters);
@@ -31,7 +31,32 @@ class CategoryManager extends AbstractManager {
     // To get a category by its id
     public function getCategoryById(int $id) : Category
     {
+        $query=$this->db->prepare("SELECT * FROM categories WHERE categories.id = :id");
+        $parameters=['id' => $id];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
 
+        $newCat = new Category($result['category_name'], $result['description']);
+
+        return $newCat;
+    }
+
+    public function editCategory(Category $category) : void
+    {
+        $query=$this->db->prepare("UPDATE categories SET category_name = :name, product_id = :product, description = :description");
+        $parameters=[
+            'name' => $category->getName(),
+            'product' => $category->getProduct->getId(),
+            'description' => $category->getDescription()
+        ];
+        $query->execute($parameters);
+    }
+
+    public function deleteCategory(int $id) : void
+    {
+        $query=$this->db->prepare("DELETE FROM categories WHERE categories.id = :id");
+        $parameters=['id' => $id];
+        $query->execute($parameters);
     }
 }
 
