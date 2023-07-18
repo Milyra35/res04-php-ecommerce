@@ -12,6 +12,7 @@ class Order {
         $this->product = $product;
         $this->user = $user;
         $this->price = $price;
+
     }
 
     // Getters and setters
