@@ -5,7 +5,6 @@ require 'AbstractManager.php';
 class OrderManager extends AbstractManager {
 
     public function saveOrder(Order $order): bool {
-        // Supposons que vous ayez une table "orders" dans votre base de données avec les colonnes correspondantes
 
         // Récupérer les valeurs de l'objet Order pour l'insertion dans la base de données
         $orderId = $order->getId();
