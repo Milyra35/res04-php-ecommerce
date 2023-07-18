@@ -25,15 +25,31 @@ class UserManager extends AbstractManager
     
     
     
-    public function update(User $user) : ?User 
+    public function update(int $id) : ?User 
     {
         
-    }
+    $query = $this->db->prepare("DELETE FROM users WHERE id = :id");
+    $parameters = [
+        "id" => $id
+    ];
+    $query->execute($parameters);
+
+    return $query->rowCount() > 0;
+}
     
-    public function delete(User $user) : ?void
-    {
-        
-    }
+    
+    
+    // supression d'un user 
+   public function delete(int $id) : ?User
+{
+    $query = $this->db->prepare("DELETE FROM users WHERE id = :id");
+    $parameters = [
+        "id" => $id
+    ];
+    $query->execute($parameters);
+
+    return $query->rowCount() > 0;
+}
     
     //reccuperation d'un user avec id
     public function getUserById(int $id) : ?User
@@ -59,7 +75,8 @@ class UserManager extends AbstractManager
 
     }
     
-    public function selectAll() : array
+        // reccuperation de tous les utilisateurs
+    public function getAllUsers() : array
     {
     
         $list = [];
