@@ -7,8 +7,9 @@ class Product {
     private string $description;
     private float $price;
     private int $quantity;
+    private Category $category;
 
-    public function __construct(string $name, string $picture, string $description, float $price, int $quantity)
+    public function __construct(string $name, string $picture, string $description, float $price, int $quantity, Category $category)
     {
         $this->id = null;
         $this->name = $name;
@@ -16,6 +17,7 @@ class Product {
         $this->description = $description;
         $this->price = $price;
         $this->quantity = $quantity;
+        $this->category = $category;
     }
 
     public function getId() : ?int
@@ -70,6 +72,15 @@ class Product {
     public function setQuantity(int $quantity) : void
     {
         $this->quantity = $quantity;
+    }
+
+    public function getCategory() : Category
+    {
+        return $this->category;
+    }
+    public function setCategory(Category $category) : void
+    {
+        $this->category = $category;
     }
 }
 

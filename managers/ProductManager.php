@@ -66,7 +66,31 @@ class ProductManager extends AbstractManager {
         $query->execute($parameters);
     }
 
-    public function
+    // To find a Product by its name
+    public function getProductByName(string $name) : Product
+    {
+        $query=$this->db->prepare("SELECT * FROM products WHERE product_name = :name");
+        $parameters=['name' => $name];
+        $query->execute($parameters);
+
+        $result=$query->fetch(PDO::FETCH_ASSOC);
+        $product = new Product($result['product_name'], $result['pictures'], $result['description'], $result['price'], $result['quantity']);
+
+        return $product;
+    }
+
+    // To get all the products from a same category
+    public function getProductByCategory(string $name) : array
+    {
+        $query=$this->db->prepare("SELECT * FROM products JOIN categories ON products.id = categories.product_id
+            WHERE categories.name = :name");
+        $parameters=['name' => $name];
+        $query->execute($parameters);
+
+        $list = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $list;
+    }
 }
 
 ?>

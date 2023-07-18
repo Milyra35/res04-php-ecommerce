@@ -4,6 +4,7 @@ class Category {
     private ?int $id;
     private string $name;
     private string $description;
+    private Category $category;
 
     public function __construct(string $name, string $description)
     {
@@ -37,6 +38,15 @@ class Category {
     public function setDescription(string $description) : void
     {
         $this->description = $description;
+    }
+
+    public function getCategory() : Category
+    {
+        return $this->category;
+    }
+    public function setCategory(Category $category) : void
+    {
+        $this->category = $category;
     }
 }
 
