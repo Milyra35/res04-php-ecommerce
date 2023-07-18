@@ -6,7 +6,7 @@ class UserManager extends AbstractManager
     
 
     // création de user
-    public function insert(User $user) : ?User
+    public function insertUser(User $user) : ?User
     {
         $query = $this->db->prepare("INSERT INTO users(id,firstName,lastName, email, password) VALUES (null, :firstName,:lastName, :email, :password)");
         $parameters = [
@@ -17,15 +17,15 @@ class UserManager extends AbstractManager
         ];
         
         $query->execute($parameters);
-
+        $id = $query->fetch(PDO::FETCH_ASSOC);
         $user->setId($this->db->lastInsertId());
         return $user;
 
     }
     
+   //Mis ajour d'un User 
     
-    
-    public function update(int $id) : ?User 
+    public function updateUser(int $id) : ?User 
     {
         
     $query = $this->db->prepare("DELETE FROM users WHERE id = :id");
@@ -34,7 +34,6 @@ class UserManager extends AbstractManager
     ];
     $query->execute($parameters);
 
-    return $query->rowCount() > 0;
 }
     
     
@@ -48,7 +47,6 @@ class UserManager extends AbstractManager
     ];
     $query->execute($parameters);
 
-    return $query->rowCount() > 0;
 }
     
     //reccuperation d'un user avec id
