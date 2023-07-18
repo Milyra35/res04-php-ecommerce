@@ -2,10 +2,12 @@
 
 class ProductController extends AbstractController {
     private ProductManager $pm;
+    private CategoryManager $cm;
 
-    public function __construct(ProductManager $pm)
+    public function __construct()
     {
-        $this->pm = new ProductManager($dbName, $port, $host, $username, $password);
+        $this->pm = new ProductManager();
+        $this->cm = new CategoryManager();
     }
 
     // To show all the products on one page
@@ -26,8 +28,14 @@ class ProductController extends AbstractController {
             $description = $_POST['description'];
             $price = $_POST['price'];
             $quantity = $_POST['quantity'];
-            $category =
         }
+    }
+
+    public function productsByCategory()
+    {
+        $this->cm->getCategoryById(); //Put the id in parameter
+        $products = $this->pm->getProductByCategory(); //Put the name of the category in parameter
+        $this->render('categories/category.phtml', $products);
     }
 }
 

@@ -2,13 +2,13 @@
 
 class UserManager extends AbstractManager
 {
-    private PDO $db;
+    //private PDO $db;
 
 
     // création de user
     public function insertUser(User $user) : ?User
     {
-        $query = $this->db->prepare("INSERT INTO users(id,firstName,lastName, email, password) VALUES (null, :firstName,:lastName, :email, :password)");
+        $query = $this->db->prepare("INSERT INTO users(id,first_name,last_name, email, password) VALUES (null, :firstName,:lastName, :email, :password)");
         $parameters = [
             "firstName" => $user->getfirstName(),
             "lastName" => $user->getlastName(),

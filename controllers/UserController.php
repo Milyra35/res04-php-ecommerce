@@ -2,13 +2,13 @@
 
 class UserController extends AbstractController {
 
-    private $userManager;
-    private $orderManager;
+    private UserManager $userManager;
+    private OrderManager $orderManager;
 
     public function __construct()
     {
-        $this->userManager = new UserManager("marierichir_ecommerce","3306","", "marierichir", "a616eefc0b8af8e5fb785ae6b42c19f1");
-        $this->orderManager = new OrderManager("marierichir_ecommerce","3306","db.3wa.io", "marierichir", "a616eefc0b8af8e5fb785ae6b42c19f1");
+        $this->userManager = new UserManager();
+        $this->orderManager = new OrderManager();
     }
 
     public function index()
@@ -25,12 +25,13 @@ class UserController extends AbstractController {
 
     public function createUser()
     {
-        if(isset($_POST['firstname'], $_POST['lastname'], $_POST['password']))
+        $this->render('users/create.phtml', []);
+        if(isset($_POST['submit-create-user']))
         {
-            $user = new User($_POST['firstname'], $_POST['lastname'], $_POST['password']);
+            $user = new User($_POST['firstname'], $_POST['lastname'],$_POST['email'], $_POST['password']);
             $this->userManager->insertUser($user);
             $allUsers = $this->userManager->getAllUsers();
-            $this->render('create_user', ['user' => $user]);
+            // $this->render('users/create.phtml', ['user' => $user]);
         }
         else
         {
