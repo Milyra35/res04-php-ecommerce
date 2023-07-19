@@ -11,13 +11,13 @@ Class OrderController extends AbstractController {
     }
 
     public function createOrder(array $post){
-        // Rendu de la vue "orders/create.phtml" avec le tableau $post
-        $this->render('orders/create.phtml', $post);
+    // Rendu de la vue "orders/create.phtml" avec le tableau $post
+    $this->render('orders/create.phtml', $post);
 
-        if(isset($_POST['add'])){
-
-        }
+    if(isset($_POST['add'])){
+        $this->OrderManager->saveOrder($post);
     }
+}
 
     public function getOrderById(){
 
