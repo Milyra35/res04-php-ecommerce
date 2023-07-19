@@ -1,0 +1,81 @@
+Vente de produits dématérialisés, pas besoin d'adresses
+
+Classes :
+
+User
+- ?int $id
+- string firstName
+- string lastName
+- string email
+- string password
+
+Order
+- int id
+- DateTime $date
+- Product $product
+- User $user
+- float $price
+
+Product
+- int id
+- string name
+- string $picture
+- string $description
+- float $price
+- int $quantity
+
+Category
+- id
+- string name
+- string description
+
+
+Managers :
+
+AbstractManager
+Connexion à la base de données
+
+UserManager
+- getAllUsers() : array
+- createUser() : User
+- editUser() : void
+- deleteUser() : void
+- getUserById() : User
+- getUserByEmail() : User
+
+ProductManager
+- getAllProducts() : array
+- createProcuct() : Product
+- editProduct() : void
+- deleteProduct() : void
+- getProductById() : Product
+- getProductByName() : Product
+- getProductByCategory() : array
+
+OrderManager
+- saveOrder()
+- getOrderById()
+- getAllOrders()
+- getAmountOfProducts()
+- getOrdersByUser()
+
+CategoryManager
+- getAllCategories() : array
+- createCategory() : Category
+- editCategory() : void
+- deleteCategory() : void
+- getCategoryById() : Category
+- getCategoryByName() : Category
+
+
+Controllers :
+
+AbstractController
+Méthode render()
+
+UserController 
+- createUser()
+- read() -> pour le login et le $_SESSION['user']
+
+ProductController
+- indexOfProducts()
