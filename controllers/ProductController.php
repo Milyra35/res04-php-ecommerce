@@ -17,10 +17,10 @@ class ProductController extends AbstractController {
         $this->render('products/index.phtml', $products);
     }
 
-    // To render the
+    // To be able to create a product
     public function createProduct()
     {
-        $this->render('products/index.phtml', []);
+        $this->render('products/create.phtml', []);
         if(isset($_POST['submit-new-product']))
         {
             $name = $_POST['name'];
@@ -28,13 +28,22 @@ class ProductController extends AbstractController {
             $description = $_POST['description'];
             $price = $_POST['price'];
             $quantity = $_POST['quantity'];
+            $catID = $_POST['category'];
+            $category = $this->cm->getCategoryById($catId);
+
+            $product = new Product($name, $picture, $description, $price, $quantity, $category);
+            $this->pm->createProduct($product);
+
+            header("Location:index.php?route=homepage");
         }
     }
 
-    public function productsByCategory()
+    // To have all the products by Category
+    public function productsByCategory(string $category)
     {
-        $this->cm->getCategoryById(); //Put the id in parameter
-        $products = $this->pm->getProductByCategory(); //Put the name of the category in parameter
+        $id =
+        $category = $this->cm->getCategoryById($id); // Put the id in parameter
+        $products = $this->pm->getProductByCategory($category->getName()); // Put the name of the category in parameter
         $this->render('categories/category.phtml', $products);
     }
 }

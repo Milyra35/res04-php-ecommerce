@@ -14,14 +14,15 @@ class ProductManager extends AbstractManager {
     // Create a product and send it in the database
     public function createProduct(Product $product) : Product
     {
-        $query=$this->db->prepare("INSERT INTO products (product_name, picture, description, price, quantity)
-                  VALUES (:name, :picture, :description, :price, :quantity)");
+        $query=$this->db->prepare("INSERT INTO products (product_name, picture, description, price, quantity, category_id)
+                  VALUES (:name, :picture, :description, :price, :quantity, :category)");
         $parameters = [
             'name' => $product->getName(),
             'picture' => $product->getPicture(),
             'description' => $product->getDescription(),
             'price' => $product->getPrice(),
-            'quantity' => $product->getQuantity()
+            'quantity' => $product->getQuantity(),
+            'category' => $product->getCategory()->getId()
         ];
 
         $query->execute($parameters);
@@ -34,13 +35,14 @@ class ProductManager extends AbstractManager {
     // If we want to edit a product
     public function editProduct(Product $product) : void
     {
-        $query=$this->db->prepare("UPDATE products SET product_name = :name, pictures = :picture, description = :description, price = :price, quantity = :quantity");
+        $query=$this->db->prepare("UPDATE products SET product_name = :name, pictures = :picture, description = :description, price = :price, quantity = :quantity, category_id = :category");
         $parameters = [
             'name' => $product->getName(),
             'picture' => $product->getPicture(),
             'description' => $product->getDescription(),
             'price' => $product->getPrice(),
-            'quantity' => $product->getQuantity()
+            'quantity' => $product->getQuantity(),
+            'category' => $product->getCategory()->getId()
         ];
         $query->execute($parameters);
     }
@@ -53,12 +55,12 @@ class ProductManager extends AbstractManager {
         $query->execute($parameters);
         $product = $query->fetch(PDO::FETCH_ASSOC);
 
-        $newProd = new Product($product['product_name'], $product['pictures'], $product['description'], $product['price'], $product['quantity']);
+        $newProd = new Product($product['product_name'], $product['pictures'], $product['description'], $product['price'], $product['quantity'], $product['category_id']);
 
         return $newProd;
     }
 
-    // To delete a Product
+    // To delete a Product by its id
     public function deleteProduct(int $id) : void
     {
         $query=$this->db->prepare("DELETE FROM products WHERE products.id = :id");
@@ -74,7 +76,7 @@ class ProductManager extends AbstractManager {
         $query->execute($parameters);
 
         $result=$query->fetch(PDO::FETCH_ASSOC);
-        $product = new Product($result['product_name'], $result['pictures'], $result['description'], $result['price'], $result['quantity']);
+        $product = new Product($result['product_name'], $result['pictures'], $result['description'], $result['price'], $result['quantity'], $result['category_id']);
 
         return $product;
     }

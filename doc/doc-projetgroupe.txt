@@ -23,6 +23,7 @@ Product
 - string $description
 - float $price
 - int $quantity
+- Category $category
 
 Category
 - id
@@ -42,6 +43,7 @@ UserManager
 - deleteUser() : void
 - getUserById() : User
 - getUserByEmail() : User
+Détails -> fait mais à revoir au niveau des requêtes
 
 ProductManager
 - getAllProducts() : array
@@ -75,7 +77,49 @@ Méthode render()
 
 UserController 
 - createUser()
-- read() -> pour le login et le $_SESSION['user']
+- read() -> pour le login et le $_SESSION['user'] à faire
+Détails -> revoir les méthodes car il n'y a pas de $_SESSION['user']
 
 ProductController
 - indexOfProducts()
+- createProduct()
+- productsByCategory() -> à revoir car il manque à récupérer l'id
+
+CategoryController
+- getAllCategories()
+- createCategory()
+
+OrderController
+-
+Détails -> En cours d'écriture sur une méthode pour ajouter à un $_SESSION['cart']
+Voir pour écrire une méthode removeOrder(), éventuellement une méthode pour modifier la quantité
+
+
+PHTML
+
+- Users
+create -> fait
+login -> à faire
+edit -> fait
+index -> à faire
+
+- Products
+create -> fait
+index -> à faire avec boucle pour afficher chaque produit
+edit -> à faire
+
+- Categories
+category -> à faire (montrer une catégorie et tous ses produits)
+create -> à faire
+index -> à faire (montrer toutes les catégories et pouvoir cliquer dessus)
+
+- Orders
+by-user -> à faire (montrer le panier de l'utilisateur)
+index -> à faire (montrer toutes les commandes)
+
+layout.phtml -> fait, peut-être revoir la nav et/ou ajouter un header et footer
+
+Router, autoload faits (à voir si tout fonctionne)
+index.php fait aussi
+
+

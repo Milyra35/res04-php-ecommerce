@@ -17,7 +17,7 @@ $oc = new OrderController($om);
 if(isset($_GET['route']))
 {
     require 'services/Router.php';
-    $router = new Router($$uc, $pc, $cc, $oc);
+    $router = new Router($uc, $pc, $cc, $oc);
     $router->checkRoute();
 }
 
