@@ -43,10 +43,9 @@ class CategoryManager extends AbstractManager {
 
     public function editCategory(Category $category) : void
     {
-        $query=$this->db->prepare("UPDATE categories SET category_name = :name, product_id = :product, description = :description");
+        $query=$this->db->prepare("UPDATE categories SET category_name = :name, description = :description");
         $parameters=[
             'name' => $category->getName(),
-            'product' => $category->getProduct->getId(),
             'description' => $category->getDescription()
         ];
         $query->execute($parameters);

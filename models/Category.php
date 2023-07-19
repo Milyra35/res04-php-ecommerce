@@ -4,14 +4,12 @@ class Category {
     private ?int $id;
     private string $name;
     private string $description;
-    private Product $product;
 
     public function __construct(string $name, string $description)
     {
         $this->id = null;
         $this->name = $name;
         $this->description = $description;
-        $this->product = $product;
     }
 
     public function getId() : ?int
@@ -39,15 +37,6 @@ class Category {
     public function setDescription(string $description) : void
     {
         $this->description = $description;
-    }
-
-    public function getProduct() : Product
-    {
-        return $this->product;
-    }
-    public function setProduct(Product $product) : void
-    {
-        $this->product = $product;
     }
 }
 

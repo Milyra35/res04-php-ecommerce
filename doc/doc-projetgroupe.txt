@@ -23,6 +23,7 @@ Product
 - string $description
 - float $price
 - int $quantity
+- Category $category
 
 Category
 - id
@@ -75,7 +76,26 @@ Méthode render()
 
 UserController 
 - createUser()
-- read() -> pour le login et le $_SESSION['user']
+- read() -> pour le login et le $_SESSION['user'] à faire
 
 ProductController
 - indexOfProducts()
+- createProduct()
+- productsByCategory()
+
+CategoryController
+- getAllCategories()
+- createCategory()
+
+OrderController
+- 
+
+
+PHTML
+
+- Users
+create
+login
+edit
+index
+

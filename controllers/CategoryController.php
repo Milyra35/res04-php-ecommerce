@@ -13,6 +13,17 @@ class CategoryController extends AbstractController {
         $categories = $this->cm->getAllCategories();
         $this->render('categories/index.phtml', $categories);
     }
+
+    public function createCategory()
+    {
+        $this->render('categories/create.phtml', []);
+        if(isset($_POST['submit-new-category']))
+        {
+            $category = new Category($_POST['name'], $_POST['description']);
+            $newCat = $this->cm->createCategory($category);
+            header("Location:index.php?route=homepage");
+        }
+    }
 }
 
 ?>
