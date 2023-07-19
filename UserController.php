@@ -11,6 +11,8 @@ class UserController extends AbstractController {
         $this->orderManager = new OrderManager("marierichir_ecommerce","3306","db.3wa.io", "marierichir", "a616eefc0b8af8e5fb785ae6b42c19f1");
     }
     
+    
+    //reccuperation de tous les users et toutes les commandes sur la page index
     public function index()
     {
         $allUsers = $this->userManager->getAllUsers();
@@ -22,9 +24,9 @@ class UserController extends AbstractController {
     }
 
 
-
-public function createUser()
-{
+    //creation d'un nouveau user
+    public function createUser()
+    {
     if(isset($_POST['firstname'], $_POST['lastname'], $_POST['password']))
     {
         $user = new User($_POST['firstname'], $_POST['lastname'], $_POST['password']);
@@ -37,11 +39,10 @@ public function createUser()
         $allUsers = $this->userManager->getAllUsers();
         $this->render('create_user', ['users' => $allUsers]);
     }
-}
+    }
 
-    
-public function editUser(){
-            
+    // editer ou modifier un user
+    public function editUser($id){
             
             if(isset($_POST['firstname'], $_POST['lastname']))
         {
@@ -56,7 +57,7 @@ public function editUser(){
             
         }
     
-   
+        //supprimer un user
         public function delete(int $userId)
         {
             $this->userManager->deleteUser($userId);
@@ -67,7 +68,7 @@ public function editUser(){
     
     
     
-            public function read(int $userId)
+        public function read(int $userId)
         {
         $user = $this->userManager->getUserById($userId);
     
@@ -77,9 +78,5 @@ public function editUser(){
             echo'user non trouvé';
         }
         }
-        
-    // public function readAll()
-    // {
-        
-    // }
+
 }

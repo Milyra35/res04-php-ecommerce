@@ -41,12 +41,11 @@ class UserController extends AbstractController {
     }
 
 
-    public function editUser(){
-
+    public function editUser($id){
 
         if(isset($_POST['firstname'], $_POST['lastname']))
         {
-            $user = new User($_SESSION['id'], $_POST['firstname'], $_POST['lastname']);
+            $user = new User($_SESSION['id'], $_POST['firstname'], $_POST['lastname'],$_POST['password'],$_POST['email']);
             $this->userManager->updateUser($id);
             $allUsers = $this->userManager->getAllUsers();
             $this->render('edit_user', ['users' => $allUsers]);
@@ -58,9 +57,9 @@ class UserController extends AbstractController {
     }
 
 
-    public function delete(int $userId)
+    public function delete(int $Id)
     {
-        $this->userManager->deleteUser($userId);
+        $this->userManager->deleteUser($Id);
         $allUsers = $this->userManager->getAllUsers();
         $this->render('delete_user', ['users' => $allUsers]);
     }
