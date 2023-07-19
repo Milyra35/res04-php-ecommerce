@@ -17,7 +17,7 @@ class ProductController extends AbstractController {
         $this->render('products/index.phtml', $products);
     }
 
-    // To render the
+    // To be able to create a product
     public function createProduct()
     {
         $this->render('products/create.phtml', []);
@@ -39,11 +39,11 @@ class ProductController extends AbstractController {
     }
 
     // To have all the products by Category
-    public function productsByCategory()
+    public function productsByCategory(string $category)
     {
         $id =
-        $this->cm->getCategoryById($id); //Put the id in parameter
-        $products = $this->pm->getProductByCategory(); //Put the name of the category in parameter
+        $category = $this->cm->getCategoryById($id); // Put the id in parameter
+        $products = $this->pm->getProductByCategory($category->getName()); // Put the name of the category in parameter
         $this->render('categories/category.phtml', $products);
     }
 }

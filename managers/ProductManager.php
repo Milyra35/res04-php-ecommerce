@@ -60,7 +60,7 @@ class ProductManager extends AbstractManager {
         return $newProd;
     }
 
-    // To delete a Product
+    // To delete a Product by its id
     public function deleteProduct(int $id) : void
     {
         $query=$this->db->prepare("DELETE FROM products WHERE products.id = :id");
