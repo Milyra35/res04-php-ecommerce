@@ -15,7 +15,7 @@ Class OrderController extends AbstractController {
     $this->render('orders/create.phtml', $post);
 
     if(isset($_POST['add'])){
-
+        $this->$O_Manager->saveOrder($post);
     }
 }
 
